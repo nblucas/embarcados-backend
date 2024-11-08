@@ -66,8 +66,19 @@ app.post('/cobrancas', (req, res, next) => {
     });
 });
 
+app.get('/cobrancas', (req, res, next) => {
+    db.all(`SELECT * FROM cobrancas`, [], (err, result) => {
+        if (err) {
+            console.log("Erro: " + err);
+            res.status(500).send('Erro ao obter dados de cobrancas.');
+        } else {
+            res.status(200).json(result);
+        }
+    });
+});
+
 app.get('/cobrancas/:cartao', (req, res, next) => {
-    db.get( `SELECT * FROM cobrancas WHERE cartao = ?`, req.params.cartao, (err, result) => {
+    db.all( `SELECT * FROM cobrancas WHERE cartao = ?`, req.params.cartao, (err, result) => {
         if (err) { 
             console.log("Erro: "+ err);
             res.status(500).send('Erro ao obter dados de usuários.');

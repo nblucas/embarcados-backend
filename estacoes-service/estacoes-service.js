@@ -5,11 +5,12 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-let estacaoLiberada = false;
+let estacaoLiberada = true;
 
 app.get('/estacoes', (req, res, next) => {
     if (estacaoLiberada) {
         res.status(200).send('Estação liberada para uso.');
+        estacaoLiberada = false;
     } else {
         res.status(200).send('Estação em  uso, aguarde sua vez.')
     }

@@ -85,6 +85,17 @@ app.post('/recargas', (req, res, next) => {
     });
 });
 
+app.get('/recargas', (req, res, next) => {
+    db.all(`SELECT * FROM recargas`, [], (err, result) => {
+        if (err) {
+            console.log("Erro: " + err);
+            res.status(500).send('Erro ao obter dados de recargas.');
+        } else {
+            res.status(200).json(result);
+        }
+    });
+});
+
 const porta = 8083;
 app.listen(porta, () => {
     console.log('Servidor em execução na porta: ' + porta);
